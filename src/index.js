@@ -43,19 +43,28 @@ const gameObjects = {
 	player: new Player()
 }
 
+let frameNum = 0;
+
 function main(tFrame) {
 	// Update all objects with input
-	Object.values(gameObjects).forEach(obj => obj.update(input));
+	Object.values(gameObjects).forEach(obj => obj.update(input, frameNum));
 
 	// Clear current canvas
-	context.fillStyle = "black";
-	context.fillRect(0, 0, canvas.width, canvas.height); 
+	context.fillStyle = 'black';
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.strokeStyle = 'gray';
+	for (let i = 0; i < canvas.width / 64; i++) {
+		for (let j = 0; j < canvas.height / 64; j++) {
+			context.strokeRect(i * 64, j * 64, 64, 64);
+		}
+	}
 
 	// Draw all objects
-	Object.values(gameObjects).forEach(obj => obj.draw(context));
+	Object.values(gameObjects).forEach(obj => obj.draw(context, frameNum));
 
 	// Do this loop again
 	window.requestAnimationFrame(main);
+	frameNum++;
 }
 
 window.requestAnimationFrame(main);

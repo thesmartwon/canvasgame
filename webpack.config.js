@@ -10,6 +10,21 @@ module.exports = {
 	devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
+	},
+	module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
   },
 	plugins: [
 		// new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
